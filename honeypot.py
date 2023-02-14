@@ -23,13 +23,18 @@ def start_server():
     server_socket.bind(('0.0.0.0', 80))
     server_socket.listen(1)
     print('Listening on 0.0.0.0:80...')
-    while True:
-        client_socket, client_address = server_socket.accept()
-        request = client_socket.recv(4096).decode('utf-8')
-        log_request(request, client_address)
-        response = 'HTTP/1.1 200 OK\r\n\r\nThis is a honeypot. The request has been logged.'
-        client_socket.sendall(response.encode('utf-8'))
-        client_socket.close()
+    try:
+        while True:
+            client_socket, client_address = server_socket.accept()
+            request = client_socket.recv(4096).decode('utf-8')
+            log_request(request, client_address)
+            response = 'HTTP/1.1 200 OK\r\n\r\nThis is a honeypot. The request has been logged.'
+            client_socket.sendall(response.encode('utf-8'))
+            client_socket.close()
+    except KeyboardInterrupt:
+        print('Exiting...')
+    finally:
+        server_socket.close()
 
 if __name__ == '__main__':
     start_server()
