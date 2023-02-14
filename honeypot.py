@@ -3,15 +3,20 @@ import json
 from datetime import datetime
 
 def log_request(request, client_address):
+    lines = request.split('\r\n')
+    request_line = lines[0].split()
+    method, url, _ = request_line
+    subdomain, _, path = url.partition('/')
     data = {
         'time': str(datetime.now()),
         'attacker_ip': client_address[0],
         'attacker_port': client_address[1],
-        'method': request.split()[0],
+        'method': method,
+        'subdomain': subdomain,
+        'url': path,
         'headers': {},
         'body': ''
     }
-    lines = request.split('\r\n')
     for i, line in enumerate(lines[1:]):
         if not line:
             data['body'] = '\r\n'.join(lines[i+2:])
