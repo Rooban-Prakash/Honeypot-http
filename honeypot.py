@@ -14,15 +14,7 @@ def log_request(request, client_address):
         'method': method,
         'subdomain': subdomain,
         'url': path,
-        'headers': {},
-        'body': ''
     }
-    for i, line in enumerate(lines[1:]):
-        if not line:
-            data['body'] = '\r\n'.join(lines[i+2:])
-            break
-        key, value = line.split(': ')
-        data['headers'][key] = value
     with open('log.json', 'a') as f:
         f.write(json.dumps(data) + '\n')
 
