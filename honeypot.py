@@ -1,8 +1,12 @@
 import socket
 import json
+from datetime import datetime
 
-def log_request(request):
+def log_request(request, client_address):
     data = {
+        'time': str(datetime.now()),
+        'attacker_ip': client_address[0],
+        'attacker_port': client_address[1],
         'method': request.split()[0],
         'headers': {},
         'body': ''
@@ -25,7 +29,7 @@ def start_server():
     while True:
         client_socket, client_address = server_socket.accept()
         request = client_socket.recv(4096).decode('utf-8')
-        log_request(request)
+        log_request(request, client_address)
         response = 'HTTP/1.1 200 OK\r\n\r\nThis is a honeypot. The request has been logged.'
         client_socket.sendall(response.encode('utf-8'))
         client_socket.close()
