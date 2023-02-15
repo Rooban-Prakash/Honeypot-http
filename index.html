@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+      h1 {
+        text-align: center;
+        color: #555;
+      }
+      form {
+        border: 1px solid #ccc;
+        background-color: #fff;
+        padding: 20px;
+        width: 50%;
+        margin: 0 auto;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: #555;
+      }
+      input[type=file] {
+        margin-bottom: 20px;
+      }
+      input[type=submit] {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>File Upload</h1>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+      <label for="file">Choose a file to upload:</label>
+      <input type="file" name="file" id="file"><br><br>
+      <input type="submit" value="Upload">
+    </form>
+  </body>
+</html>
